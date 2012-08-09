@@ -54,6 +54,7 @@
     pointLight.intensity = 0.8;
     pointLight.position = new THREE.Vector3(0, 7000, 0);
     scene.add(pointLight);
+    scene.fog = new THREE.FogExp2( 0x000066, 0 );
 
 
 
@@ -90,6 +91,8 @@
     var skybox = new THREE.Mesh( skyboxGeom, new THREE.MeshFaceMaterial() );
     skybox.flipSided = true;
     scene.add( skybox );
+
+
 
 
     /*
@@ -237,6 +240,11 @@
   function update(){
     if (waterMesh){
 
+      if (waterMesh.position.y + waterHeight > camera.position.y){
+        scene.fog.density = 0.0022;
+      }else{
+        scene.fog.density = 0;
+      }
       waterMesh.translateY(0.1);
     }
 
